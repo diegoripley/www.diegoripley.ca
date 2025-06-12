@@ -1,0 +1,62 @@
+name = "diegoripley-website"
+main = "src/index.js"
+compatibility_date = "2022-05-15"
+# Set this to false if you don't want to use the default *.workers.dev route.
+# Note that *.workers.dev routes don't support native worker-level caching: https://developers.cloudflare.com/workers/runtime-apis/cache/
+workers_dev = true
+routes = [
+  { pattern = "www.diegoripley.ca", custom_domain = true }
+]
+
+[vars]
+# The `access-control-allow-origin` header: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+# Optional, the `access-control-allow-origin` header is omitted if unset, which blocks all cross-origin requests.
+ALLOWED_ORIGINS = "https://www.diegoripley.ca"
+
+# The `cache-control` header: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control.
+# Optional, the `cache-control` header is omitted if unset, which would NOT disable caching: https://developers.cloudflare.com/workers/runtime-apis/cache/#headers
+# For example, you can disable all cache by setting this to `no-store`.
+CACHE_CONTROL = "max-age=86400, public"
+
+# The string to prepend to each file path. Optional, nothing is prepended to the path if unset.
+PATH_PREFIX = ""
+
+# Index file to search for on directory requests, set to "" to disable indexes
+# Relative to the directory of the request.
+#INDEX_FILE = ""
+INDEX_FILE = "index.html"
+
+# File to fall back to when the requested path is not found in the bucket.
+# Incurs an additional read operation for 404 requests.
+# Set to "" to disable custom 404 fallbacks.
+# Relative to the root of the bucket.
+NOTFOUND_FILE = "404.html"
+
+# Enable to show a directory listing fallback on paths ending in /
+# If INDEX_FILE is also provided, it will be used instead if the file exists.
+DIRECTORY_LISTING = true
+
+# The number of items to show per page in directory listings.
+# Listings may also return less if the listing API call reaches a size limit.
+# Maximum of 1000.
+ITEMS_PER_PAGE = 1000
+
+# Enable to hide files or directories beginning with . from directory listings.
+HIDE_HIDDEN_FILES = true
+
+# Set a cache header here, e.g. "max-age=86400", if you want to cache directory listings.
+DIRECTORY_CACHE_CONTROL = "max-age=86400, public"
+
+# Set debugging log enabled.
+LOGGING = false
+
+# Set the number of retries allowed for each R2 operation (-1 for unlimited).
+R2_RETRIES = 0
+
+[observability]
+enabled = false
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "diegoripley-www"         # Set this to your R2 bucket name. Required
+preview_bucket_name = "diegoripley-www" # Set this to your preview R2 bucket name. Can be equal to bucket_name. Optional

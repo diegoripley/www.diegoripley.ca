@@ -1,0 +1,71 @@
+# Hugo configuration file
+title: Diego Ripley
+
+# import hextra as module
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+markup:
+  # allow raw html
+  goldmark:
+    renderer:
+      unsafe: true
+
+  # enable hextra syntax highlight
+  highlight:
+    noClasses: false
+
+# Do not inject generator meta tag on homepage
+disableHugoGeneratorInject: true 
+
+# Parse Git commit
+enableGitInfo: true
+
+enableInlineShortcodes: true
+enableEmoji: true
+
+menu:
+  main:
+    - name: Blog
+      url: /blog/
+      weight: 1
+    - name: Contact
+      url: /contact/
+      weight: 2
+    - name: Search
+      weight: 3
+      params:
+        type: search
+    - name: GitHub
+      weight: 4
+      url: "https://github.com/diegoripley"
+      params:
+        icon: github
+
+params:
+  navbar:
+    displayTitle: true
+    displayLogo: true
+
+  page:
+    # full (100%), wide (90rem), normal (1280px)
+    width: wide
+
+  footer:
+    displayCopyright: false
+    displayPoweredBy: false
+
+  comments:
+    enable: true
+    type: giscus
+
+    giscus:
+      repo: diegoripley/www.diegoripley.ca
+      repoId: R_kgDOO6vPXg
+      category: General
+      categoryId: DIC_kwDOO6vPXs4CrbL_
+
+  editURL:
+    enable: true
+    base: "https://github.com/diegoripley/www.diegoripley.ca/edit/main/content"

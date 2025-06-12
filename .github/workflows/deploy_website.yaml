@@ -1,0 +1,47 @@
+name: Deploy Website
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'worker/*'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "website_deploy"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.147.7'
+          extended: true
+      - name: Build website
+        run: hugo --minify --baseURL "https://www.diegoripley.ca/"
+      - name: Upload to Cloudflare R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.R2_REGION }}
+        run: |
+          aws s3 sync public/ s3://${{ secrets.R2_BUCKET }} \
+            --endpoint-url=${{ secrets.R2_ENDPOINT }} \
+            --acl public-read \
+            --delete \
+            --exclude "files/*" \
+            --exclude "google401db5951ee31102.html"
+      - name: Purge Cloudflare cache
+        run: |
+          curl --location 'https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache' \
+            --header 'Content-Type: application/json' \
+            --header 'Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN_PURGE_CACHE }}' \
+            --data '{"hosts": ["www.diegoripley.ca"]}'
