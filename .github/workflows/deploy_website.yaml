@@ -32,14 +32,12 @@ jobs:
       - name: Configure rclone for Cloudflare R2
         run: |
           mkdir -p ~/.config/rclone
-          cat <<EOF > ~/.config/rclone/rclone.conf
-[cloudflare]
-type = s3
-provider = Cloudflare
-access_key_id = ${{ secrets.R2_ACCESS_KEY_ID }}
-secret_access_key = ${{ secrets.R2_SECRET_ACCESS_KEY }}
-endpoint = ${{ secrets.R2_ENDPOINT }}
-EOF
+          echo "[cloudflare]" > ~/.config/rclone/rclone.conf
+          echo "type = s3" >> ~/.config/rclone/rclone.conf
+          echo "provider = Cloudflare" >> ~/.config/rclone/rclone.conf
+          echo "access_key_id = ${{ secrets.R2_ACCESS_KEY_ID }}" >> ~/.config/rclone/rclone.conf
+          echo "secret_access_key = ${{ secrets.R2_SECRET_ACCESS_KEY }}" >> ~/.config/rclone/rclone.conf
+          echo "endpoint = ${{ secrets.R2_ENDPOINT }}" >> ~/.config/rclone/rclone.conf
       - name: Upload to Cloudflare R2
         run: |
           rclone sync --progress --exclude "/files/**" --exclude "google401db5951ee31102.html" public/ cloudflare:/${{ secrets.R2_BUCKET }}
