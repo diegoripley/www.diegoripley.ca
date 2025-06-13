@@ -27,18 +27,22 @@ jobs:
           extended: true
       - name: Build website
         run: hugo --minify --baseURL "https://www.diegoripley.ca/"
-      - name: Upload to Cloudflare R2
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.R2_REGION }}
+      - name: Install rclone
+        run: curl https://rclone.org/install.sh | sudo bash
+      - name: Configure rclone for Cloudflare R2
         run: |
-          aws s3 sync public/ s3://${{ secrets.R2_BUCKET }} \
-            --endpoint-url=${{ secrets.R2_ENDPOINT }} \
-            --acl public-read \
-            --delete \
-            --exclude "files/*" \
-            --exclude "google401db5951ee31102.html"
+          mkdir -p ~/.config/rclone
+          cat <<EOF > ~/.config/rclone/rclone.conf
+[cloudflare]
+type = s3
+provider = Cloudflare
+access_key_id = ${{ secrets.R2_ACCESS_KEY_ID }}
+secret_access_key = ${{ secrets.R2_SECRET_ACCESS_KEY }}
+endpoint = ${{ secrets.R2_ENDPOINT }}
+EOF
+      - name: Upload to Cloudflare R2
+        run: |
+          rclone sync --progress --exclude "/files/**" --exclude "google401db5951ee31102.html" public/ cloudflare:/${{ secrets.R2_BUCKET }}
       - name: Purge Cloudflare cache
         run: |
           curl --location 'https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache' \
