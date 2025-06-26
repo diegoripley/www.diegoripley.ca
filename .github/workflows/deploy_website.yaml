@@ -40,7 +40,7 @@ jobs:
           echo "endpoint = ${{ secrets.R2_ENDPOINT }}" >> ~/.config/rclone/rclone.conf
       - name: Upload to Cloudflare R2
         run: |
-          rclone sync --progress --exclude "/files/**" --exclude "google401db5951ee31102.html" public/ cloudflare:/${{ secrets.R2_BUCKET }}
+          rclone sync --progress --exclude "/files/**" public/ cloudflare:/${{ secrets.R2_BUCKET }}
       - name: Purge Cloudflare cache
         run: |
           curl --location 'https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache' \
