@@ -132,7 +132,7 @@ curl https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadSDMX/98100404 
     jq -r '.object' | xargs curl -O
 ```
 
-## 3.5 Not Enough RAM!
+## 3.6 Not Enough RAM!
 I only have 32 GB of RAM on my PC, and as you can see on the table listed in `2. Result`, the largest table is 120.09 GB. I had to get creative when processing it. I added a 400 GB swapfile and changed a couple of kernel parameters (see below) in `/etc/sysctl.d`.
 
 ```
