@@ -132,6 +132,16 @@ curl https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadSDMX/98100404 
     jq -r '.object' | xargs curl -O
 ```
 
+## 3.5 Not Enough RAM!
+I only have 32 GB of RAM on my PC, and as you can see on the table listed in `2. Result`, the largest table is 120.09 GB. I had to get creative when processing it. I added a 400 GB swapfile and changed a couple of kernel parameters (see below) in `/etc/sysctl.d`.
+
+```
+# Goes up to 200. A higher value means the system will swap more aggressively. The default value is 60.
+vm.swappiness = 200
+# Controls the tendency of the kernel to reclaim the memory which is used for caching of directory and inode objects. The default value is 100.
+vm.vfs_cache_pressure = 0
+```
+
 # 4. Next Steps
 - Create a Dagster pipeline that automatically keeps the data up-to-date.
 - Make sure that the data is accessible long-term by storing the data in [Zenodo](https://zenodo.org/) (operated by CERN). Zenodo allows versioning of a dataset, so we can keep track of the changes to each table.
