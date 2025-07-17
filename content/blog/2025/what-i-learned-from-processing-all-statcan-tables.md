@@ -153,5 +153,5 @@ vm.vfs_cache_pressure = 0
 - Make sure that the data is accessible long-term by storing the data in [Zenodo](https://zenodo.org/) (operated by CERN). Zenodo allows versioning of a dataset, so we can keep track of the changes to each table.
 - Create Python and R API bindings that use DuckDB. Users will be able to filter the data and also link the geographic boundaries if they wish. I am currently working on this in [here](https://github.com/diegoripley/stats_can_data).
 
-## Other
+## 5. Other
 I made a brief 5 minute presentation on modernizing Statistics Canada data. You can view it [here](https://www.diegoripley.ca/files/modernizing_access_to_statistics_canada_data_july_11_2025/), best viewed in full screen.
