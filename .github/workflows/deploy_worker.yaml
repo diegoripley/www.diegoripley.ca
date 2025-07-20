@@ -5,7 +5,8 @@ on:
       - main
     paths:
       - 'worker/**'
-      - '.devcontainer/*'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
@@ -25,3 +26,9 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKER }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: "worker"
+      - name: Purge Cloudflare cache
+        run: |
+          curl --location 'https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache' \
+            --header 'Content-Type: application/json' \
+            --header 'Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN_PURGE_CACHE }}' \
+            --data '{"hosts": ["www.diegoripley.ca"]}'
