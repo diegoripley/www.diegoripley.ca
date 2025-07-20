@@ -1,5 +1,5 @@
 // Environment variables needed:
-// JMAP_TOKEN - Your Fastmail app password or OAuth token
+// JMAP_TOKEN - Fastmail API token
 // LOGIN_EMAIL - Email for Fastmail account
 // PERSONAL_EMAIL - Email that the contact form will send the content to
 // CONTACT_FORM_EMAIL - From email for the contact form
