@@ -43,6 +43,9 @@ menu:
       params:
         icon: github
 
+# Parse Git commit
+enableGitInfo: true
+
 params:
   navbar:
     displayTitle: true
@@ -51,7 +54,6 @@ params:
   # Display the last modification date
   displayUpdatedDate: true
   dateFormat: "January 2, 2006"
-  enableGitInfo: true
 
   page:
     # full (100%), wide (90rem), normal (1280px)
