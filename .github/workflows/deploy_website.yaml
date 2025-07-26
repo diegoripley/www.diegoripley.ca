@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch full history so Hugo can use Git info
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
