@@ -47,10 +47,11 @@ params:
   navbar:
     displayTitle: true
     displayLogo: true
-    
+
   # Display the last modification date
   displayUpdatedDate: true
   dateFormat: "January 2, 2006"
+  enableGitInfo: true
 
   page:
     # full (100%), wide (90rem), normal (1280px)
