@@ -4,3 +4,4 @@ resources/
 .hugo_build.lock
 # Worker
 node_modules/
+.wrangler/
