@@ -104,7 +104,7 @@ curl https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata \
 See the previous two examples. When using [getAllCubesListLite](https://www.statcan.gc.ca/en/developers/wds/user-guide#a11-5), the `productId` is an integer. However when you get the table metadata via [getCubeMetadata](https://www.statcan.gc.ca/en/developers/wds/user-guide#a11-1), the `productId` is a string. This is a minor issue.
 
 ### 3.4 Invalid DGUIDs
-There are 6037 distinct invalid DGUIDs (see interactive list below). These records were found by running this regular expression that was built from the definitions outlined in [1](https://www150.statcan.gc.ca/n1/pub/92f0138m/92f0138m2019001-eng.htm ) and [2](https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo055).
+There are 6037 distinct invalid DGUIDs (see interactive list below). These records were found by finding any records that did not match the regular expression listed below. The regular expression was built from the definitions outlined in [1](https://www150.statcan.gc.ca/n1/pub/92f0138m/92f0138m2019001-eng.htm ) and [2](https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo055).
 
 ```
 # Regular expression made from:
