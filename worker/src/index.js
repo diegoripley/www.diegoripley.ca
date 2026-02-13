@@ -1,15 +1,20 @@
 import render from 'render2'
-import { handleContactForm } from './contact.js'
 
 export default {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+    const url = new URL(request.url)
     
-    // Handle contact form requests at /contact_form_worker/
-    if (url.pathname === '/contact_form_worker/') {
-      return handleContactForm(request, env);
+    // Redirect to add trailing slash for paths that:
+    // 1. Don't already have a trailing slash
+    // 2. Aren't the root path
+    // 3. Don't have a file extension
+    if (url.pathname !== '/' && 
+        !url.pathname.endsWith('/') && 
+        !url.pathname.match(/\.[^/]+$/)) {
+      return Response.redirect(url.origin + url.pathname + '/' + url.search, 301)
     }
-
+    
+    // Let render2 handle the request
     return render.fetch(request, env, ctx)
   }
 }

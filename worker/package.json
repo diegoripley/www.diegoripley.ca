@@ -3,6 +3,6 @@
     "render2": "^1.5.0"
   },
   "devDependencies": {
-    "wrangler": "^4.25.0"
+    "wrangler": "^4.63.0"
   }
 }
