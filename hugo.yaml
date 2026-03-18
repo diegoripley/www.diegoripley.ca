@@ -25,6 +25,14 @@ enableGitInfo: true
 enableInlineShortcodes: true
 enableEmoji: true
 
+outputs:
+  home: [html, rss]
+  page: [html, rss, markdown]
+  rss: [rss]
+  section: [html, rss, markdown]
+  taxonomy: [html, rss]
+  term: [html, rss]
+
 menu:
   main:
     - name: Blog
@@ -39,34 +47,46 @@ menu:
         type: search
     - name: GitHub
       weight: 4
-      url: "https://github.com/diegoripley"
+      url: "https://github.com/diegoripley/www.diegoripley.ca"
       params:
         icon: github
-
-# Parse Git commit
-enableGitInfo: true
 
 params:
   navbar:
     displayTitle: true
     displayLogo: true
 
+  theme:
+    default: dark
+    displayToggle: true
+  
+  search:
+    flexsearch:
+      tokenize: forward
+
   # Display the last modification date
   displayUpdatedDate: true
-  dateFormat: "January 2, 2006"
+  dateFormat: "Monday, January 2, 2006 at 3:04 PM MST"
 
   page:
     # full (100%), wide (90rem), normal (1280px)
     width: wide
-  
-  theme:
-    default: dark
-    displayToggle: true
-    # Display the last modification date
+    contextMenu:
+      enable: true
+      links:
+        - name: "Ask ChatGPT"
+          url: "https://chatgpt.com/?q=Help+me+understand+the+content+in+this+url:+{url}+read+the+url+and+any+other+urls+referenced+on+the+page"
+          icon: "sparkles"
+        - name: "Ask Claude"
+          url: "https://claude.ai/new?q=Help+me+understand+the+content+in+this+url:+{url}+read+the+url+and+any+other+urls+referenced+on+the+page"
+          icon: "puzzle"
   
   footer:
     displayCopyright: false
     displayPoweredBy: false
+
+  imageZoom:
+    enable: true
 
   comments:
     enable: true
