@@ -1,7 +1,7 @@
 
 ---
 title: Resume
-date: 2026-04-30
+date: 2026-05-30
 authors:
   - name: diegoripley
     link: https://github.com/diegoripley
@@ -11,4 +11,4 @@ tags:
   - curriculum-vitea
 ---
 
-{{< pdf "DiegoRipleyResume_2026-04-30.pdf" >}}
+{{< pdf "DiegoRipleyResume_2026-05-30.pdf" >}}
