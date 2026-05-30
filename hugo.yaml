@@ -36,7 +36,7 @@ outputs:
 menu:
   main:
     - name: 📚 Resume
-      url: /resume/
+      url: /cv/
       weight: 1
     - name: Blog
       pageRef: /blog/
