@@ -1,7 +1,7 @@
 
 ---
 title: CV
-date: 2026-05-30
+date: 2026-06-19
 authors:
   - name: diegoripley
     link: https://github.com/diegoripley
@@ -10,4 +10,4 @@ tags:
   - curriculum-vitea
 ---
 
-{{< pdf "DiegoRipleyResume_2026-05-30.pdf" >}}
+{{< pdf "DiegoRipleyResume_2026-06-19.pdf" >}}
